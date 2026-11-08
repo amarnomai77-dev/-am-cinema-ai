@@ -1,0 +1,13 @@
+{
+  "background_color": "#000000",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "AM CINEMA AI",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "AM CINEMA",
+  "start_url": "/",
+  "theme_color": "#d4af37",
+  "id": "com.amcinema.ai",
+  "description": "AM CINEMA AI is an intelligent cinematic platform for creating movies, generating scenes, designing characters, and editing videos using artificial intelligence."
+}
