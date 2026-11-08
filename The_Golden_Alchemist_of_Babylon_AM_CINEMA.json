@@ -1,0 +1,211 @@
+{
+  "id": "proj_babylon_gold",
+  "title": "The Golden Alchemist of Babylon",
+  "titleAr": "خيميائي بابل الذهبي",
+  "logline": "An ancient astronomer discovers the forgotten frequency to transmute starlight into boundless golden energy.",
+  "loglineAr": "عالم فلك بابلي يكتشف تردد النجوم الضائع لتحويل ضوء الكواكب إلى طاقة ذهبية خالدة تضيء مدينته العظيمة.",
+  "synopsis": "In the twilight towers of ancient Babylon, Master Alchemist Tareq and celestial navigator Layla race against the solar eclipse to activate the legendary Golden Astrolabe before darkness consumes the cradle of civilization.",
+  "synopsisAr": "في أبراج بابل المعلقة عند الغسق، يسابق الخيميائي طارق والملاحة ليلى عقارب الكسوف الشمسي لتشغيل الإسطرلاب الذهبي الأسطوري قبل أن يبتلع الظلام المدينة العظيمة.",
+  "owner": "AMMAR ALNAMI — عمار النمي",
+  "settings": {
+    "aspectRatio": "2.39:1",
+    "defaultResolution": "1080p",
+    "targetDurationSeconds": 120,
+    "genre": "Epic Historical Sci-Fi / Panavision Cinema",
+    "visualStyle": "35mm Kodak 5219 Film Grain, Warm Golden Hour, Chiaroscuro Volumetric Dust",
+    "filmColorPalette": [
+      "#f59e0b",
+      "#78350f",
+      "#09090b",
+      "#3b82f6",
+      "#fbbf24"
+    ]
+  },
+  "characters": [
+    {
+      "id": "char_tareq",
+      "name": "Tareq Al-Babylon",
+      "nameAr": "طارق البابلي",
+      "role": "Lead Alchemist / Protagonist",
+      "age": 38,
+      "gender": "Male",
+      "ethnicityOrStyle": "Middle Eastern, dignified with sharp hazel eyes",
+      "facialFeatures": "Sharp jawline, well-groomed dark beard with touches of silver, piercing amber-hazel eyes, thoughtful expression",
+      "wardrobe": "Deep obsidian and gold-embroidered silk cloak, brass clasps, weathered leather gauntlets",
+      "signatureColors": [
+        "#f59e0b",
+        "#0f172a",
+        "#78350f"
+      ],
+      "accessories": "Ancient astrolabe pendant, golden signet ring with engraved Babylonian star",
+      "consistencyPromptToken": "char_tareq_alchemist: 38yo dignified Arab alchemist, sharp jawline, short trimmed dark beard with silver flecks, piercing amber-hazel eyes, dressed in luxury obsidian and gold-embroidered silk robe with brass clasps, wearing astrolabe pendant",
+      "referenceImageUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80",
+      "createdAt": 1794094082820
+    },
+    {
+      "id": "char_layla",
+      "name": "Layla The Navigator",
+      "nameAr": "ليلى الملاحية",
+      "role": "Astronomer & Co-Pilot",
+      "age": 29,
+      "gender": "Female",
+      "ethnicityOrStyle": "Arab / Mediterranean with radiant expression",
+      "facialFeatures": "High cheekbones, intense dark eyes, subtle geometric star tattoo beneath right eye",
+      "wardrobe": "Midnight blue aerodynamic flight jacket, brass armillary band, copper mesh scarf",
+      "signatureColors": [
+        "#1e3a8a",
+        "#d97706",
+        "#f8fafc"
+      ],
+      "accessories": "Celestial star charts cylinder, copper chronometer bracelet",
+      "consistencyPromptToken": "char_layla_navigator: 29yo Arabian astronomer woman, radiant intense dark eyes, geometric star marking below right eye, wearing midnight-blue flight coat with brass armillary shoulder plate and copper scarf",
+      "referenceImageUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80",
+      "createdAt": 1794094182820
+    }
+  ],
+  "scenes": [
+    {
+      "id": "sc_1",
+      "sceneNumber": 1,
+      "title": "The Hanging Observatory at Sunset",
+      "titleAr": "مرصد بابل المعلق عند الغروب",
+      "location": "Babylon High Terrace Observatory",
+      "locationAr": "شرفة المرصد الفلكي البابلي الشاهق",
+      "timeOfDay": "golden_hour",
+      "weatherOrAtmosphere": "Dust suspended in warm amber rays, dusk breeze over euphrates river",
+      "dramaticBeat": "Establishing the grand scale and the impending celestial alignment",
+      "shots": [
+        {
+          "id": "sh_101",
+          "sceneId": "sc_1",
+          "shotNumber": 1,
+          "title": "Majestic Establishing Shot of Babylon",
+          "titleAr": "لقطة تأسيسية مهيبة لأبراج بابل المعلقة",
+          "framing": "extreme_wide",
+          "cameraMovement": "crane_shot",
+          "focalLength": "24mm",
+          "motionStrength": 4,
+          "durationSeconds": 5,
+          "resolution": "1080p",
+          "visualPrompt": "Cinematic Panavision extreme wide shot, ancient Babylon hanging gardens and grand ziggurat at golden hour sunset, euphrates river reflecting molten gold sunlight, atmospheric dust motes, 35mm film grain, 8k masterpiece",
+          "visualPromptAr": "لقطة سينمائية واسعة جداً لمرتفعات وأبراج بابل المعلقة ونهر الفرات يعكس أشعة الغروب الذهبية في لحظات سحرية، حبيبات فيلم 35 مم",
+          "characterIds": [],
+          "lightingStyle": "Low-angle golden hour rim light with deep bronze shadows",
+          "ambientSound": "Wind sweeping over stone terrace, distant temple bells",
+          "musicIntensity": "quiet",
+          "transitionToNext": "crossfade",
+          "imageUrl": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1280&q=80"
+        },
+        {
+          "id": "sh_102",
+          "sceneId": "sc_1",
+          "shotNumber": 2,
+          "title": "Tareq Deciphers the Star Cylinder",
+          "titleAr": "طارق يفكك شفرة الأسطوانة النجمية",
+          "framing": "medium_shot",
+          "cameraMovement": "pan_right",
+          "focalLength": "50mm",
+          "motionStrength": 3,
+          "durationSeconds": 4,
+          "resolution": "1080p",
+          "visualPrompt": "Cinematic medium shot: char_tareq_alchemist: 38yo dignified Arab alchemist, sharp jawline, short trimmed dark beard with silver flecks, piercing amber-hazel eyes, dressed in luxury obsidian and gold-embroidered silk robe, examining a glowing brass astrolabe on stone table, volumetric sunlight beams",
+          "visualPromptAr": "لقطة متوسطة: الخيميائي طارق البابلي بملامحه الوقورة ورداء الحرير الأسود والمطرز بالذهب يفحص الإسطرلاب المتوهج فوق منضدة الحجر البابلية",
+          "characterIds": [
+            "char_tareq"
+          ],
+          "lightingStyle": "Warm directional sunlight hitting profile, dramatic chiaroscuro",
+          "dialogue": {
+            "id": "dia_1",
+            "characterId": "char_tareq",
+            "speakerName": "Tareq (طارق)",
+            "text": "The celestial alignment occurs only once every thousand years. We cannot falter.",
+            "textAr": "اقتران الكواكب لن يتكرر إلا بعد ألف عام.. ليس أمامنا مجال للتردد.",
+            "emotion": "dramatic",
+            "durationSeconds": 4
+          },
+          "ambientSound": "Brass gears ticking, parchment rustle",
+          "musicIntensity": "building",
+          "transitionToNext": "cut",
+          "imageUrl": "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1280&q=80"
+        },
+        {
+          "id": "sh_103",
+          "sceneId": "sc_1",
+          "shotNumber": 3,
+          "title": "Layla Warns of the Eclipse",
+          "titleAr": "ليلى تحذر من اقتراب حافة الكسوف",
+          "framing": "close_up",
+          "cameraMovement": "zoom_in",
+          "focalLength": "85mm",
+          "motionStrength": 5,
+          "durationSeconds": 4,
+          "resolution": "1080p",
+          "visualPrompt": "Cinematic intimate close-up: char_layla_navigator: 29yo Arabian astronomer woman, radiant intense dark eyes, geometric star marking below right eye, looking through copper sextant toward the darkening sun, intense dramatic gaze, shallow depth of field, anamorphic bokeh",
+          "visualPromptAr": "لقطة مقربة سينمائية: ليلى الملاحية بعينيها اللامعتين وعلامة النجمة الهندسية تنظر عبر المنظار النحاسي إلى قرص الشمس الآخذ في التلاشي",
+          "characterIds": [
+            "char_layla"
+          ],
+          "lightingStyle": "Twilight cyan ambient counter-balanced by warm copper lantern glow",
+          "dialogue": {
+            "id": "dia_2",
+            "characterId": "char_layla",
+            "speakerName": "Layla (ليلى)",
+            "text": "Look at the sun’s crown, Tareq! The shadow has already touched the outer ring!",
+            "textAr": "انظر إلى إكليل الشمس يا طارق! الظل بدأ يلامس الحلقة الخارجية بالفعل!",
+            "emotion": "tense",
+            "durationSeconds": 4
+          },
+          "ambientSound": "Sharp gust of wind, eclipse shadow whisper",
+          "musicIntensity": "climax",
+          "transitionToNext": "fade_black",
+          "imageUrl": "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1280&q=80"
+        }
+      ]
+    },
+    {
+      "id": "sc_2",
+      "sceneNumber": 2,
+      "title": "The Great Golden Ignition",
+      "titleAr": "الاشتعال الذهبي العظيم",
+      "location": "The Core of the Astrolabe Chamber",
+      "locationAr": "قلب غرفة الإسطرلاب الكبرى",
+      "timeOfDay": "midnight",
+      "weatherOrAtmosphere": "Total eclipse outside, chamber glowing with crystalline gold energy",
+      "dramaticBeat": "The climax of discovery: transmuting celestial light into endless luminescence",
+      "shots": [
+        {
+          "id": "sh_201",
+          "sceneId": "sc_2",
+          "shotNumber": 1,
+          "title": "The Astrolabe Activates",
+          "titleAr": "انطلاق حزم الضوء الذهبية من قلب الإسطرلاب",
+          "framing": "wide",
+          "cameraMovement": "orbit_360",
+          "focalLength": "35mm",
+          "motionStrength": 7,
+          "durationSeconds": 6,
+          "resolution": "1080p",
+          "visualPrompt": "Ultra high production cinematic wide shot, ancient Babylon stone chamber with giant rotating brass and gold celestial mechanisms emitting blinding beams of liquid golden light, char_tareq_alchemist and char_layla_navigator standing side by side in awe, lens flares, IMAX quality",
+          "visualPromptAr": "لقطة سينمائية واسعة ساحرة: غرفة حجرية بابلية تدور فيها تروس أسطورية نحاسية وذهبية مطلقة حزم ضوء سائل ومبهر، يقف طارق وليلى مذهولين أمام الإشعاع",
+          "characterIds": [
+            "char_tareq",
+            "char_layla"
+          ],
+          "lightingStyle": "Central intense warm golden core light with high contrast dark edges",
+          "ambientSound": "Deep resonant crystal hum, rising symphonic crescendo",
+          "musicIntensity": "climax",
+          "transitionToNext": "crossfade",
+          "imageUrl": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1280&q=80"
+        }
+      ]
+    }
+  ],
+  "audioTrack": {
+    "musicStyle": "Epic Middle-Eastern Orchestral & Duduk Strings",
+    "volume": 0.75
+  },
+  "totalDurationSeconds": 19,
+  "estimatedCostUsd": 0.12,
+  "createdAt": 1794091482820,
+  "updatedAt": 1794095082820
+}
