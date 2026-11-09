@@ -1,5 +1,5 @@
-/**
- * @license
+
+/*
  * SPDX-License-Identifier: Apache-2.0
  * AM CINEMA AI — Master Application
  * Lead Developer: AMMAR ALNAMI (عمار النمي)
@@ -8,6 +8,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
+
 import {
   loadProjectsFromStorage,
   saveProjectsToStorage,
@@ -15,7 +16,9 @@ import {
   setActiveProjectId,
   STARTER_PROJECT,
 } from './utils/storage';
+
 import { CinemaProject } from './types/cinema';
+
 import { Header, ActiveTab } from './components/Header';
 import { DashboardView } from './components/DashboardView';
 import { AutoDirectorView } from './components/AutoDirectorView';
@@ -25,95 +28,178 @@ import { TimelineEditorView } from './components/TimelineEditorView';
 import { EnginesHubView } from './components/EnginesHubView';
 import { DiagnosticsView } from './components/DiagnosticsView';
 import { SmartDirectorModal } from './components/SmartDirectorModal';
+
 import {
   Film,
   Sparkles,
   Sliders,
   Users,
   Layers,
-  Cpu,
-  Activity,
 } from 'lucide-react';
 
+// Unique project ID
+const createProjectId = () =>
+  `am-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+
+// Safe initial projects
+const loadInitialProjects = (): CinemaProject[] => {
+  try {
+    const saved = loadProjectsFromStorage();
+
+    if (Array.isArray(saved) && saved.length > 0) {
+      return saved;
+    }
+  } catch (error) {
+    console.error('Project loading failed:', error);
+  }
+
+  return [STARTER_PROJECT];
+};
+
 export default function App() {
-  const [projects, setProjects] = useState<CinemaProject[]>(() => loadProjectsFromStorage());
-  const [currentProjectId, setCurrentProjectId] = useState<string>(() => getActiveProjectId());
+  const [projects, setProjects] = useState<CinemaProject[]>(
+    loadInitialProjects
+  );
+
+  const [currentProjectId, setCurrentProjectId] = useState<string>(() => {
+    try {
+      return getActiveProjectId() || STARTER_PROJECT.id;
+    } catch {
+      return STARTER_PROJECT.id;
+    }
+  });
+
   const [activeTab, setActiveTab] = useState<ActiveTab>('dashboard');
+
   const [lang, setLang] = useState<'ar' | 'en'>('ar');
+
   const [isSaving, setIsSaving] = useState(false);
+
   const [showSmartDirector, setShowSmartDirector] = useState(false);
 
-  // Active Cinema Project
+  const isAr = lang === 'ar';
+
+  // Current active project
   const currentProject =
-    projects.find((p) => p.id === currentProjectId) || projects[0] || STARTER_PROJECT;
+    projects.find((p) => p.id === currentProjectId) ||
+    projects[0] ||
+    STARTER_PROJECT;
 
-  // Debounced auto-save
+  // Automatic project saving
   useEffect(() => {
-    setIsSaving(true);
-    const timer = setTimeout(() => {
+    try {
+      setIsSaving(true);
       saveProjectsToStorage(projects);
+      setActiveProjectId(currentProjectId);
+    } catch (error) {
+      console.error('Project saving failed:', error);
+    } finally {
       setIsSaving(false);
-    }, 600);
-    return () => clearTimeout(timer);
-  }, [projects]);
+    }
+  }, [projects, currentProjectId]);
 
-  // Handle active project selection
+  // Select project
   const handleSelectProject = (id: string) => {
+    const exists = projects.some((p) => p.id === id);
+
+    if (!exists) return;
+
     setCurrentProjectId(id);
     setActiveProjectId(id);
   };
 
-  // Handle updates to the active project
-  const handleUpdateCurrentProject = (updated: CinemaProject) => {
-    setProjects((prev) => prev.map((p) => (p.id === updated.id ? updated : p)));
-  };
+  // Create project
+  const handleCreateProject = () => {
+    const now = Date.now();
 
-  // Handle create new project
-  const handleCreateProject = (newProj: CinemaProject) => {
-    setProjects((prev) => [newProj, ...prev]);
-    setCurrentProjectId(newProj.id);
-    setActiveProjectId(newProj.id);
-    setActiveTab('auto_director');
-  };
-
-  // Handle duplicate project
-  const handleDuplicateProject = (id: string) => {
-    const target = projects.find((p) => p.id === id);
-    if (!target) return;
-    const duplicated: CinemaProject = {
-      ...target,
-      id: `proj_${Date.now()}`,
-      title: `${target.title} (Copy)`,
-      titleAr: `${target.titleAr || target.title} (نسخة)`,
-      createdAt: Date.now(),
-      updatedAt: Date.now(),
+    const newProject: CinemaProject = {
+      ...STARTER_PROJECT,
+      id: createProjectId(),
+      createdAt: now,
+      updatedAt: now,
     };
-    setProjects((prev) => [duplicated, ...prev]);
+
+    setProjects((prev) => [newProject, ...prev]);
+    setCurrentProjectId(newProject.id);
+    setActiveProjectId(newProject.id);
+    setActiveTab('dashboard');
   };
 
-  // Handle delete project
+  // Update current project
+  const handleUpdateCurrentProject = (updatedProject: CinemaProject) => {
+    setProjects((prev) =>
+      prev.map((project) =>
+        project.id === currentProjectId
+          ? {
+              ...updatedProject,
+              updatedAt: Date.now(),
+            }
+          : project
+      )
+    );
+  };
+
+  // Duplicate project
+  const handleDuplicateProject = (id: string) => {
+    const source = projects.find((p) => p.id === id);
+
+    if (!source) return;
+
+    const now = Date.now();
+
+    const duplicated: CinemaProject = {
+      ...source,
+      id: createProjectId(),
+      createdAt: now,
+      updatedAt: now,
+    };
+
+    setProjects((prev) => [duplicated, ...prev]);
+    setCurrentProjectId(duplicated.id);
+    setActiveProjectId(duplicated.id);
+  };
+
+  // Delete project
   const handleDeleteProject = (id: string) => {
     if (projects.length <= 1) return;
+
     const filtered = projects.filter((p) => p.id !== id);
+
+    if (filtered.length === projects.length) return;
+
     setProjects(filtered);
+
     if (currentProjectId === id) {
-      setCurrentProjectId(filtered[0].id);
-      setActiveProjectId(filtered[0].id);
+      const nextProject = filtered[0];
+
+      setCurrentProjectId(nextProject.id);
+      setActiveProjectId(nextProject.id);
     }
   };
 
-  // Handle import project
+  // Import project
   const handleImportProject = (imported: CinemaProject) => {
-    setProjects((prev) => [imported, ...prev]);
-    setCurrentProjectId(imported.id);
-    setActiveProjectId(imported.id);
-  };
+    if (!imported) return;
 
-  const isAr = lang === 'ar';
+    const now = Date.now();
+
+    const importedProject: CinemaProject = {
+      ...imported,
+      id: projects.some((p) => p.id === imported.id)
+        ? createProjectId()
+        : imported.id,
+      updatedAt: now,
+    };
+
+    setProjects((prev) => [importedProject, ...prev]);
+    setCurrentProjectId(importedProject.id);
+    setActiveProjectId(importedProject.id);
+  };
 
   return (
     <div className="min-h-screen bg-[#070709] text-stone-100 flex flex-col selection:bg-amber-500/30 selection:text-amber-200">
-      {/* Global Navigation Header */}
+
+      {/* Global Navigation */}
       <Header
         activeTab={activeTab}
         setActiveTab={setActiveTab}
@@ -125,8 +211,9 @@ export default function App() {
         isSaving={isSaving}
       />
 
-      {/* Main Studio Viewport */}
+      {/* Main Studio */}
       <main className="flex-1 pb-20 sm:pb-12">
+
         {activeTab === 'dashboard' && (
           <DashboardView
             projects={projects}
@@ -184,9 +271,10 @@ export default function App() {
         {activeTab === 'diagnostics' && (
           <DiagnosticsView lang={lang} />
         )}
+
       </main>
 
-      {/* Smart Director Modal */}
+      {/* Smart Director */}
       {showSmartDirector && (
         <SmartDirectorModal
           project={currentProject}
@@ -196,12 +284,15 @@ export default function App() {
         />
       )}
 
-      {/* Mobile Touch Bar for Android */}
+      {/* Android Mobile Navigation */}
       <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#070709]/95 backdrop-blur-md border-t border-stone-800 py-1.5 px-2 flex items-center justify-around">
+
         <button
           onClick={() => setActiveTab('dashboard')}
           className={`flex flex-col items-center gap-0.5 text-[10px] ${
-            activeTab === 'dashboard' ? 'text-amber-400 font-bold' : 'text-stone-400'
+            activeTab === 'dashboard'
+              ? 'text-amber-400 font-bold'
+              : 'text-stone-400'
           }`}
         >
           <Film className="w-4 h-4" />
@@ -211,7 +302,9 @@ export default function App() {
         <button
           onClick={() => setActiveTab('auto_director')}
           className={`flex flex-col items-center gap-0.5 text-[10px] ${
-            activeTab === 'auto_director' ? 'text-amber-400 font-bold' : 'text-stone-400'
+            activeTab === 'auto_director'
+              ? 'text-amber-400 font-bold'
+              : 'text-stone-400'
           }`}
         >
           <Sparkles className="w-4 h-4" />
@@ -221,7 +314,9 @@ export default function App() {
         <button
           onClick={() => setActiveTab('manual_studio')}
           className={`flex flex-col items-center gap-0.5 text-[10px] ${
-            activeTab === 'manual_studio' ? 'text-amber-400 font-bold' : 'text-stone-400'
+            activeTab === 'manual_studio'
+              ? 'text-amber-400 font-bold'
+              : 'text-stone-400'
           }`}
         >
           <Sliders className="w-4 h-4" />
@@ -231,7 +326,9 @@ export default function App() {
         <button
           onClick={() => setActiveTab('characters')}
           className={`flex flex-col items-center gap-0.5 text-[10px] ${
-            activeTab === 'characters' ? 'text-amber-400 font-bold' : 'text-stone-400'
+            activeTab === 'characters'
+              ? 'text-amber-400 font-bold'
+              : 'text-stone-400'
           }`}
         >
           <Users className="w-4 h-4" />
@@ -241,27 +338,41 @@ export default function App() {
         <button
           onClick={() => setActiveTab('timeline')}
           className={`flex flex-col items-center gap-0.5 text-[10px] ${
-            activeTab === 'timeline' ? 'text-amber-400 font-bold' : 'text-stone-400'
+            activeTab === 'timeline'
+              ? 'text-amber-400 font-bold'
+              : 'text-stone-400'
           }`}
         >
           <Layers className="w-4 h-4" />
           <span>{isAr ? 'المونتاج' : 'Timeline'}</span>
         </button>
+
       </div>
 
       {/* Luxury Footer */}
       <footer className="border-t border-stone-900 bg-[#050507] py-4 text-center text-xs text-stone-500">
+
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+
           <p className="font-cinematic text-stone-400">
             AM CINEMA AI — Create. Direct. Inspire.
           </p>
+
           <p>
-            {isAr ? 'المطور الرئيسي والمالك:' : 'Lead Creator & Developer:'}{' '}
-            <span className="text-amber-400 font-semibold">AMMAR ALNAMI — عمار النمي</span>
+            {isAr
+              ? 'المطور الرئيسي والمالك:'
+              : 'Lead Creator & Developer:'}{' '}
+
+            <span className="text-amber-400 font-semibold">
+              AMMAR ALNAMI — عمار النمي
+            </span>
+
             {' '}| AI Assistant: ChatGPT (GT Assistant)
           </p>
+
         </div>
       </footer>
+
     </div>
   );
 }
